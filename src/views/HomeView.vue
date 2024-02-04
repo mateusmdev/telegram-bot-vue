@@ -15,11 +15,17 @@
   const users = ref([])
   const idUser = ref([])
   const currentUserData = ref({})
+  const router = useRouter()
 
   function handleOpenModal(event){
     isOpen.value = true
     idUser.value = event.docId
     currentUserData.value = event
+  }
+
+  function logout(){
+    localStorage.removeItem('token-bot')
+    router.push('/')
   }
 
   async function loadUserData(users){
@@ -51,8 +57,7 @@
     const isLoggedIn = verifyLogin()
     
     if (!isLoggedIn){
-      const router = useRouter()
-      router.push('/')
+      logout()
       return
     }
 
@@ -78,7 +83,7 @@
     </ul>
   </main>
   <Modal v-if="isOpen" :id="idUser" :userData="currentUserData" :closeCallback="() => {isOpen = false; idUser = null; currentUserData.value = {} }" />
-  <a href="#" class="logout-btn border-r">
+  <a href="#" class="logout-btn border-r" v-on:click=logout>
     <img :src="LogoutSVG" alt="logout-icon.svg">
     <span>Sair</span>
   </a>
@@ -100,8 +105,8 @@
     padding-right: 0.7rem;
   }
   .logout-btn{
-    position: relative;
-    bottom: -12rem;
+    position: absolute;
+    bottom: 2rem;
     display: flex;
     align-items: center;
     justify-content: space-around;

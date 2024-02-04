@@ -6,7 +6,7 @@ import firebaseConfig from './../../../config/firebaseConfig'
 import { getFirestore, collection, doc, onSnapshot, getDoc, getDocs, query } from "firebase/firestore"
 import api from './../../../config/api'
 
-const inputValue = ref('aa')
+const inputValue = ref('')
 
 const messagesArray = ref([])
 
@@ -35,7 +35,6 @@ const props = defineProps({
 
 function loadMessages(messages){
     const { id } = props
-    console.log(id)
     const db = getFirestore(firebaseConfig)
     const messageCollection = collection(db, `chat/${id}/message`)
 
@@ -54,22 +53,18 @@ async function sendMessage(message){
         chatId: props.userData.userId
     }
 
-    const token = localStorage.getItem("token-dashboard") || "";
-    //const auth = "Bearer ".concat(token);
+    const token = localStorage.getItem("token-bot") || "";
+    const auth = "Bearer ".concat(token);
     
     const response = await api.post('/chat', body, {
         headers: {
-            Authorization: token
+            Authorization: auth 
         }
     })
-
-    console.log(response)
 }
 
 onMounted(async () => {
     await loadMessages(messagesArray)
-    console.log(messagesArray)
-    console.log(props.data)
 })
 </script>
 
@@ -83,11 +78,10 @@ onMounted(async () => {
             </div>
 
             <ul class="message-list border-r">
-                dd
                 <li v-for="(message, key) in sortedMessages" :key="key">
                     <Message :data="message"/>
                 </li>
-                {{ inputValue }}aaa
+                {{ inputValue }}
             </ul>
             <InputMessage class="border-r" placeholder="Digite sua mensagem" @send="sendMessage"/>
         </div>

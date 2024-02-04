@@ -29,8 +29,7 @@
             localStorage.setItem('token-bot', token)
             router.push('/home')
         } catch (error) {
-            console.log(error)
-            if (error.response.data.status === 401){
+            if (error.response && error.response.data.status === 401){
                 alert("Usuário não autenticado!");
                 localStorage.setItem('token-bot', '')
             }

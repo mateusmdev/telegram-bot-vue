@@ -72,6 +72,7 @@ function handleSendMessage(element) {
 }
 .placeholder{
   position: absolute;
+  color: rgba(220, 220, 255, 0.3);
 }
 
 .input-content{
@@ -83,5 +84,6 @@ function handleSendMessage(element) {
     z-index: 1;
     position: relative;
     outline: none;
+    color: rgba(220, 220, 255, 0.5);
 }
 </style>
