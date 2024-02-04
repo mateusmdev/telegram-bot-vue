@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, watchEffect, computed } from 'vue'
+import { onMounted, onBeforeUnmount, ref, watchEffect, computed } from 'vue'
 import InputMessage from './InputMessage.vue'
 import Message from './Message.vue'
 import firebaseConfig from './../../../config/firebaseConfig'
@@ -7,7 +7,6 @@ import { getFirestore, collection, doc, onSnapshot, getDoc, getDocs, query } fro
 import api from './../../../config/api'
 
 const inputValue = ref('')
-
 const messagesArray = ref([])
 
 const sortedMessages = computed(() => {
@@ -45,6 +44,10 @@ function loadMessages(messages){
 
         messages.value = await Promise.all(promises)
     })
+
+    onBeforeUnmount(() => {
+        unsubscribe()
+    });
 }
 
 async function sendMessage(message){
@@ -66,6 +69,7 @@ async function sendMessage(message){
 onMounted(async () => {
     await loadMessages(messagesArray)
 })
+
 </script>
 
 <template>

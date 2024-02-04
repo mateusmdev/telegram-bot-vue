@@ -1,5 +1,5 @@
 <script setup>
-  import { onMounted, ref } from 'vue'
+  import { onMounted, onBeforeUnmount, ref } from 'vue'
   import Contact from './../components/home/Contact.vue'
   import LogoutSVG from './../assets/logout-icon.svg'
   import Modal from './../components/home/modal/Modal.vue'
@@ -50,6 +50,10 @@
         
       })
       users.value =  await Promise.all(promises)
+    })
+
+    onBeforeUnmount(() => {
+        unsubscribe()
     })
   }
 
