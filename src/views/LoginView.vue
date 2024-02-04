@@ -2,9 +2,12 @@
     import { ref } from 'vue'
     import Input from './../components/login/Input.vue'
     import api from './../config/api'
+    import { useRouter } from 'vue-router'
+import { jwtDecode } from 'jwt-decode'
 
     const username = ref('')
     const password = ref('')
+    const router = useRouter()
 
     async function login(event){
         event.preventDefault()
@@ -21,13 +24,16 @@
         }
 
         try {
-            const response = await api.post('/authentication')
+            const response = await api.post('/authentication', body)
             const token = response.data.token
             localStorage.setItem('token-bot', token)
-            this.$router.push("/home");
+            router.push('/home')
         } catch (error) {
-            if (error.response.data.status === 401)
+            console.log(error)
+            if (error.response.data.status === 401){
                 alert("Usuário não autenticado!");
+                localStorage.setItem('token-bot', '')
+            }
             else
                 alert("Ocorreu um erro e não foi possível se conectar ao servidor");
         }

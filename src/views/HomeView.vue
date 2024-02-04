@@ -5,16 +5,21 @@
   import Modal from './../components/home/modal/Modal.vue'
   import firebaseConfig from './../config/firebaseConfig'
   import { getFirestore, collection, doc, onSnapshot, getDoc, getDocs } from "firebase/firestore"
+  import verifyLogin from './../config/auth'
+  import { useRouter } from 'vue-router'
+  import api from './../config/api'
 
   const ENV = import.meta.env
 
   const isOpen = ref(false)
   const users = ref([])
   const idUser = ref([])
+  const currentUserData = ref({})
 
   function handleOpenModal(event){
     isOpen.value = true
-    idUser.value = event
+    idUser.value = event.docId
+    currentUserData.value = event
   }
 
   async function loadUserData(users){
@@ -43,6 +48,14 @@
   }
 
   onMounted(async () => {
+    const isLoggedIn = verifyLogin()
+    
+    if (!isLoggedIn){
+      const router = useRouter()
+      router.push('/')
+      return
+    }
+
     await loadUserData(users)
 
   })
@@ -64,7 +77,7 @@
 
     </ul>
   </main>
-  <Modal v-if="isOpen" :id="idUser" :data="data" :closeCallback="() => {isOpen = false; idUser = null}" />
+  <Modal v-if="isOpen" :id="idUser" :userData="currentUserData" :closeCallback="() => {isOpen = false; idUser = null; currentUserData.value = {} }" />
   <a href="#" class="logout-btn border-r">
     <img :src="LogoutSVG" alt="logout-icon.svg">
     <span>Sair</span>

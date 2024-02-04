@@ -7,15 +7,6 @@ const props = defineProps({
         type: Object,
         required: true,
         default: {}
-    },
-    text: {
-        type: String,
-        required: true,
-        default: ''
-    },
-    isUaser: {
-        type: Boolean,
-        required: true,
     }
 })
 

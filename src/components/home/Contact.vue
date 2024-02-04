@@ -17,7 +17,11 @@ const props = defineProps({
 function openModal(event){
     event.preventDefault()
     const { docId } = props.userData
-    emit('openModal', docId)
+    emit('openModal', { 
+        docId, 
+        userId: props.userData.id,
+        name: props.userData.first_name
+    })
 }
 
 onMounted(async () => {

@@ -4,6 +4,7 @@ import InputMessage from './InputMessage.vue'
 import Message from './Message.vue'
 import firebaseConfig from './../../../config/firebaseConfig'
 import { getFirestore, collection, doc, onSnapshot, getDoc, getDocs, query } from "firebase/firestore"
+import api from './../../../config/api'
 
 const inputValue = ref('aa')
 
@@ -25,10 +26,10 @@ const props = defineProps({
         type: [Number, String],
         required: true,
     },
-    data: {
-        type: Array,
+    userData: {
+        type: Object,
         required: true,
-        default: []
+        default: {}
     }
 })
 
@@ -47,6 +48,24 @@ function loadMessages(messages){
     })
 }
 
+async function sendMessage(message){
+    const body = {
+        text: message,
+        chatId: props.userData.userId
+    }
+
+    const token = localStorage.getItem("token-dashboard") || "";
+    //const auth = "Bearer ".concat(token);
+    
+    const response = await api.post('/chat', body, {
+        headers: {
+            Authorization: token
+        }
+    })
+
+    console.log(response)
+}
+
 onMounted(async () => {
     await loadMessages(messagesArray)
     console.log(messagesArray)
@@ -59,7 +78,7 @@ onMounted(async () => {
         <div class="glass fixed"></div>
         <div class="modal border-r">
             <div class="header">
-                <span>User</span>
+                <span>{{ props.userData.name }}</span>
                 <a href="#" v-on:click="props.closeCallback">X</a>
             </div>
 
