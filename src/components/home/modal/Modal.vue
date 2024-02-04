@@ -47,7 +47,7 @@ function loadMessages(messages){
 
     onBeforeUnmount(() => {
         unsubscribe()
-    });
+    })
 }
 
 async function sendMessage(message){
