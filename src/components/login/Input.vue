@@ -47,6 +47,5 @@ const classObject = reactive({
     }
     .icon.password{
         background-image: url('./../../assets/password-icon.svg');
-    }
-    
+    } 
 </style>

@@ -2,7 +2,6 @@
 import { onMounted } from "vue"
 import firebaseConfig from './../../config/firebaseConfig'
 import { getFirestore } from "firebase/firestore"
-import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 
 const emit = defineEmits(['openModal'])
 
@@ -23,22 +22,6 @@ function openModal(event){
         name: props.userData.first_name
     })
 }
-
-onMounted(async () => {
-    /*
-    const app = firebaseConfig
-    const db = getFirestore(app)
-    const userId = props.userData.id
-
-    const path = `chat/${userId}/message`
-    const colecaoRef = collection(db, path);
-    const querySnapshot = await getDocs(colecaoRef);
-
-    querySnapshot.docs.forEach(doc => {
-        console.log('Messages: ', doc.data())
-    })*/
-
-})
 
 </script>
 

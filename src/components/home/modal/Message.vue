@@ -1,7 +1,6 @@
 <script setup>
 import { computed, onMounted, reactive, ref } from 'vue'
 
-
 const props = defineProps({
     data: {
         type: Object,

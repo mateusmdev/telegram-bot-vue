@@ -61,25 +61,20 @@ function handleSendMessage(element) {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  background: red;
   height: fit-content;
 }
 .input{
-    backsground: red;
     background: var(--second-color);
     padding: 0.7rem 1.1rem;
     position: relative;
     width: 100%;
     flex-direction: column;
-    /* word-break: break-all;
-    white-space: pre-wrap; */
 }
 .placeholder{
   position: absolute;
 }
 
 .input-content{
-    posistion: absolute;
     left: 0px;
     width: 100%;
     max-height: 150px;
@@ -88,6 +83,5 @@ function handleSendMessage(element) {
     z-index: 1;
     position: relative;
     outline: none;
-    bottsom: 50%;
 }
 </style>

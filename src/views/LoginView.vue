@@ -3,7 +3,7 @@
     import Input from './../components/login/Input.vue'
     import api from './../config/api'
     import { useRouter } from 'vue-router'
-import { jwtDecode } from 'jwt-decode'
+    import { jwtDecode } from 'jwt-decode'
 
     const username = ref('')
     const password = ref('')

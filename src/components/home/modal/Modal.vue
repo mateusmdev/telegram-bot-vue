@@ -118,7 +118,6 @@ onMounted(async () => {
     }
     .glass{
         background: var(--second-color);
-        positsion: absolute;
         opacity: 0.4;
         z-index: -1;
     }
