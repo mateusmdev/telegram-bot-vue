@@ -36,7 +36,7 @@ Um resumo do projeto:
 
 ## Screenshot
 
-<img src="./img-readme/3.png" />
+<img src="./img-readme/1.png" />
 
 ## Documentação
 
